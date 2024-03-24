@@ -6,10 +6,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL:
+    repoURL: https://github.com/alexmurithi/usermanagement-devops.git
     targetVersion: HEAD
     path: dev
-  destination:
+  destination: 
     server: https://kubernetes.default.svc
     namespace: usermanagement-app
   syncPolicy:
