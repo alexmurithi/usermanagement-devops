@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: user-management-deployment
-          image: usermanagementappcontainerregistry.azurecr.io/user-management:latest
+          image: usermanagementappcontainerregistry.azurecr.io/user-management:v1
           ports:
             - containerPort: 8080
       
