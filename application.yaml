@@ -1,13 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: usermanagement-app
+  name: usermanagement
   namespace: usermanagement-app
 spec:
   project: default
+  
   source:
     repoURL: https://github.com/alexmurithi/usermanagement-devops.git
-    targetVersion: HEAD
+    targetRevision: HEAD
     path: dev
   destination: 
     server: https://kubernetes.default.svc
