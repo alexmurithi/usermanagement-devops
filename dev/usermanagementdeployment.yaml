@@ -20,5 +20,7 @@ spec:
           image: usermanagementappcontainerregistry.azurecr.io/user-management:v1
           ports:
             - containerPort: 8080
+      imagePullSecrets:
+      - name:  acr-credentials
 
       
