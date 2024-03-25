@@ -18,6 +18,10 @@ spec:
       containers:
         - name: user-management-deployment
           image: usermanagementappcontainerregistry.azurecr.io/user-management:v1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+      imagePullSecrets:
+        - name: acr-secret
+
       
