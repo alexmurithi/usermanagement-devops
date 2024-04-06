@@ -40,14 +40,25 @@
             else
               echo "ArgoCD CLI is already installed."
             fi
-        - name: Start port forwarding
+
+        - name: Access The Argo CD API Server
           run: |
-            kubectl port-forward svc/argocd-server -n argocd 8080:443 &
-            sleep 10 # Wait a bit for port forwarding to establish
+            kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
             
-        - name: Get ArgoCD server address
+        - name: Get ArgoCD Server External IP
+          id: get-ip
           run: |
-            ARGOCD_SERVER=localhost:8080
-            echo "ArgoCD API Server: $ARGOCD_SERVER"
-            echo "ARGOCD_SERVER=$ARGOCD_SERVER" >> $GITHUB_ENV
+            while : ; do
+              IP=$(kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+              if [[ -z "$IP" ]]; then
+                echo "Waiting for LoadBalancer IP..."
+                sleep 10
+              else
+                echo "LoadBalancer IP is $IP"
+                echo "::set-output name=server_ip::$IP"
+                break
+              fi
+            done
+
+
             
