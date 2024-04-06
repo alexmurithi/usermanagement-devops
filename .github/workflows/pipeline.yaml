@@ -45,3 +45,9 @@
             kubectl port-forward svc/argocd-server -n argocd 8080:443 &
             sleep 10 # Wait a bit for port forwarding to establish
             
+        - name: Get ArgoCD server address
+          run: |
+            ARGOCD_SERVER=localhost:8080
+            echo "ArgoCD API Server: $ARGOCD_SERVER"
+            echo "ARGOCD_SERVER=$ARGOCD_SERVER" >> $GITHUB_ENV
+            
