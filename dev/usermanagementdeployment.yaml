@@ -20,6 +20,18 @@ spec:
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: '/actuator/health/liveness'
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: '/actuator/health/readiness'
+            initialDelaySeconds: 30
+            periodSeconds: 5
           resources:
             requests:
               memory: "500Mi"
