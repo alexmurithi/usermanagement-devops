@@ -17,10 +17,8 @@ spec:
     spec:
       containers:
         - name: user-management-deployment
-          image: usermanagementappcontainerregistry.azurecr.io/user-management:v1
+          image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
-      imagePullSecrets:
-      - name:  acr-credentials
 
       
