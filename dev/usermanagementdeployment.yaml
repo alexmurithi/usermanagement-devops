@@ -21,15 +21,13 @@ spec:
           ports:
             - containerPort: 8080
           livenessProbe:
-            httpGet:
+            tcpSocket:
               port: 8080
-              path: '/actuator/health/liveness'
             initialDelaySeconds: 30
             periodSeconds: 5
           readinessProbe:
-            httpGet:
+            tcpSocket:
               port: 8080
-              path: '/actuator/health/readiness'
             initialDelaySeconds: 30
             periodSeconds: 5
           resources:
