@@ -20,6 +20,19 @@ spec:
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - mountPath: /var/lib/user-management
+              name: user-management-storage
+          readinessProbe:
+              tcpSocket:
+                port: 8080
+              initialDelaySeconds: 15
+              periodSeconds: 10
+          livenessProbe:
+                tcpSocket:
+                  port: 8080
+                initialDelaySeconds: 15
+                periodSeconds: 10
           env:
             - name: DATABASE_HOST
               value: 'alexazureserver.mysql.database.azure.com'
@@ -28,6 +41,4 @@ spec:
             - name: DATABASE_PASSWORD
               value: 'Pass@word'
             - name: DATABASE_NAME
-              value: 'user-management'
-
-      
+              value: 'user-management'    
