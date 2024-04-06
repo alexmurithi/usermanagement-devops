@@ -21,13 +21,17 @@ spec:
           ports:
             - containerPort: 80
           readinessProbe:
-              tcpSocket:
+              httpGet:
+                path: '/actuator/health'
                 port: 8080
-              initialDelaySeconds: 15
+              initialDelaySeconds: 10
+              periodSeconds: 5
           livenessProbe:
-                tcpSocket:
+                httpGet:
+                  path: '/actuator/health'
                   port: 8080
-                initialDelaySeconds: 15
+                initialDelaySeconds: 10
+                periodSeconds: 5
           env:
             - name: DATABASE_HOST
               value: 'alexazureserver.mysql.database.azure.com'
