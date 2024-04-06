@@ -41,7 +41,7 @@
               echo "ArgoCD CLI is already installed."
             fi
 
-        - name: Access The Argo CD API Server
+        - name: Expose Argo CD API Server
           run: |
             kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
             
@@ -60,22 +60,6 @@
               fi
             done
 
-        - name: Get ArgoCD admin password
+        - name: Deploy ArgoCD Application
           run: |
-            ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-            echo "ArgoCD admin password: $ARGOCD_PWD"
-            echo "ARGOCD_PWD=$ARGOCD_PWD" >> $GITHUB_ENV
-
-#        - name: Update ArgoCD Admin Password
-#          env:
-#            NEW_ARGOCD_PWD: ${{ secrets.NEW_ARGOCD_PWD }}
-#          run: |
-#            argocd login $ARGOCD_SERVER_IP --username admin --password $ARGOCD_PWD --insecure
-#            argocd account update-password --current-password $ARGOCD_PWD --new-password $NEW_ARGOCD_PWD
-#            echo "ARGOCD_PWD=$NEW_ARGOCD_PWD" >> $GITHUB_ENV
-#
-#        - name: Login to ArgoCD with New Password
-#          run: argocd login $ARGOCD_SERVER_IP --username admin --password $NEW_ARGOCD_PWD --insecure
-#
-#
-#            
+            kubectl apply -f application.yaml
