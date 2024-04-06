@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: user-management-service
 spec:
-  type: LoadBalancer
   selector:
     app: user-management-deployment
   ports:
