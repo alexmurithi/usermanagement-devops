@@ -19,14 +19,14 @@ spec:
         - name: user-management-deployment
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
           readinessProbe:
               tcpSocket:
-                port: 8080
+                port: 80
               initialDelaySeconds: 15
           livenessProbe:
                 tcpSocket:
-                  port: 8080
+                  port: 80
                 initialDelaySeconds: 15
           env:
             - name: DATABASE_HOST
