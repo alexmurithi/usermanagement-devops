@@ -31,3 +31,17 @@
             else
               echo "ArgoCD is already installed."
             fi
+
+        - name: Install ArgoCD CLI
+          run: |
+            if ! command -v argocd &> /dev/null; then
+              curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+              chmod +x /usr/local/bin/argocd
+            else
+              echo "ArgoCD CLI is already installed."
+            fi
+        - name: Start port forwarding
+          run: |
+            kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+            sleep 10 # Wait a bit for port forwarding to establish
+            
