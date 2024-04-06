@@ -20,5 +20,14 @@ spec:
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: MYSQL_DATABASE
+              value: 'user-management'
+            - name: MYSQL_USER
+              value: 'user'
+            - name: MYSQL_PASSWORD
+              value: 'Pass@word'
+            - name: MYSQL_ROOT_PASSWORD
+              value: 'Pass@word'
 
       
