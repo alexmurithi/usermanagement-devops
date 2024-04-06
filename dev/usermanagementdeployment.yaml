@@ -20,9 +20,6 @@ spec:
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - mountPath: /var/lib/user-management
-              name: user-management-storage
           readinessProbe:
               tcpSocket:
                 port: 8080
