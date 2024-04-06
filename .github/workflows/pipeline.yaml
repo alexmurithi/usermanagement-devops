@@ -55,10 +55,27 @@
                 sleep 10
               else
                 echo "LoadBalancer IP is $IP"
-                echo "::set-output name=server_ip::$IP"
+                echo "ARGOCD_SERVER_IP=$IP" >> $GITHUB_ENV
                 break
               fi
             done
 
+        - name: Get ArgoCD admin password
+          run: |
+            ARGOCD_PWD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o jsonpath='{.items[0].metadata.name}')
+            echo "ArgoCD admin password: $ARGOCD_PWD"
+            echo "ARGOCD_PWD=$ARGOCD_PWD" >> $GITHUB_ENV
 
-            
+#        - name: Update ArgoCD Admin Password
+#          env:
+#            NEW_ARGOCD_PWD: ${{ secrets.NEW_ARGOCD_PWD }}
+#          run: |
+#            argocd login $ARGOCD_SERVER_IP --username admin --password $ARGOCD_PWD --insecure
+#            argocd account update-password --current-password $ARGOCD_PWD --new-password $NEW_ARGOCD_PWD
+#            echo "ARGOCD_PWD=$NEW_ARGOCD_PWD" >> $GITHUB_ENV
+#
+#        - name: Login to ArgoCD with New Password
+#          run: argocd login $ARGOCD_SERVER_IP --username admin --password $NEW_ARGOCD_PWD --insecure
+#
+#
+#            
