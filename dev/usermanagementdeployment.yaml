@@ -20,6 +20,14 @@ spec:
           image: alexacrregistry.azurecr.io/user-management:latest
           ports:
             - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
           env:
             - name: DATABASE_HOST
               value: 'alexazureserver.mysql.database.azure.com'
