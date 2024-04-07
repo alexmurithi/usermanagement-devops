@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: usermanagement-app
   namespace: argocd
+  annotations:
+      argocd-image-updater.argoproj.io/image-list: alexacrregistry.azurecr.io/user-management:latest
+      argocd-image-updater.argoproj.io/myacr.azurecr.io.user-management.update-strategy: latest
+
 spec:
   project: default
   source:
