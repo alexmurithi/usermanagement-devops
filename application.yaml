@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/alexmurithi/user-management-api.git
+    repoURL: https://github.com/alexmurithi/usermanagement-devops.git
     targetRevision: HEAD
     path: dev
   destination: 
